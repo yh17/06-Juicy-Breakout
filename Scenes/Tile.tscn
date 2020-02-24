@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Tile.gd" type="Script" id=1]
+[ext_resource path="res://Assets/smoke.png" type="Texture" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.257426, 0.762376, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 0.372549, 0.698039, 0.827451, 0.74902, 0.764706, 0.858824, 0.898039, 0.8, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 3.0
+linear_accel_random = 0.5
+angle_random = 0.5
+scale = 0.25
+scale_random = 1.0
+color_ramp = SubResource( 4 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 16 )
+
+[node name="Tile" type="StaticBody2D" groups=[
+"Tiles",
+]]
+position = Vector2( 104, 296 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="smoke" type="Particles2D" parent="."]
+material = SubResource( 2 )
+scale = Vector2( 0.01, 0.01 )
+emitting = false
+lifetime = 2.0
+one_shot = true
+speed_scale = 3.0
+explosiveness = 0.7
+randomness = 0.5
+local_coords = false
+process_material = SubResource( 5 )
+texture = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -32.0
+margin_top = -16.0
+margin_right = 32.0
+margin_bottom = 16.0
+color = Color( 0.752941, 0.0313726, 0.454902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
